@@ -3,7 +3,7 @@ window.onload = function(){
     var numeroCarta = generaLogica();
     generaEventos(numeroCarta.una, numeroCarta.dos);
 }
-
+/* Genera las cartas negras, o cartas "volteadas"*/
 function generaNegras(){
     var uno = document.getElementById('colum1');
     var dos = document.getElementById('colum2');
@@ -23,7 +23,7 @@ function generaNegras(){
     }
     
 }
-
+/* No le entra nada, devuelve un bojeto con dos arrays (se pueden poner mas) en los que traen 5 numeros al azar del 0 al 4*/
 function generaLogica(){
     var arrUno = new Array();
     var arrDos = new Array();
@@ -51,11 +51,9 @@ function generaLogica(){
     
     return objdeArray;
     
-    /* Ya tengo dos arrays con los numeros, cada numero pertenece a una carta 
-    TODO: Ahora lo que tenemos que hacer es añadir eventos para que al pulsar en una carta se voltee el numero que sea */
     
 }
-
+/* Comprueba que no haya repetidos dentro de un array*/ 
 function comprobarNoRepetidos(valor, arr){
     var sw = false;
     for(var i=0, fin = arr.length; i<fin;i++){
@@ -67,6 +65,7 @@ function comprobarNoRepetidos(valor, arr){
     return sw;
 }
 
+/*Genera los eventos en las imagenes de las columnas que les pases. Se resta i a partir de la fila dos*/
 function generaEventos(colu1, colu2){
     var uno = document.getElementById('colum1').getElementsByTagName('img');
     var dos = document.getElementById('colum2').getElementsByTagName('img');
