@@ -13,11 +13,13 @@ function generaNegras(){
     for(var i=0; i<10; i++){
         imagen = document.createElement('img');
         imagen.setAttribute('src', ruta);
-        imagen.setAttribute('name', i);
+        
         if(i<5){
           uno.appendChild(imagen);
+          imagen.setAttribute('name', i);
         }else{
           dos.appendChild(imagen);
+          imagen.setAttribute('name', i-5);
         }
         
     }
@@ -33,12 +35,12 @@ function generaLogica(){
     for(i = 0; i<5;i++){
         do{
             numeroA = Math.round(Math.random()*4);
-          }while(comprobarNoRepetidos(numeroA, arrUno));
+          }while(comprobarNoRepetidos(numeroA, arrUno, arrDos));
         arrUno[i] = numeroA;
         
         do{
             numeroB = Math.round(Math.random()*4);
-          }while(comprobarNoRepetidos(numeroB, arrDos));
+          }while(comprobarNoRepetidos(numeroB, arrUno,arrDos));
         
         arrDos[i] = numeroB;
     }
@@ -53,16 +55,22 @@ function generaLogica(){
     
     
 }
-/* Comprueba que no haya repetidos dentro de un array*/ 
-function comprobarNoRepetidos(valor, arr){
-    var sw = false;
-    for(var i=0, fin = arr.length; i<fin;i++){
-        if(valor === arr[i]){
-            sw = true;
+/* Comprueba que no haya repetidos dentro de los dos arrays*/ 
+function comprobarNoRepetidos(valor, arrU, arrD){
+    var contador = 0;
+    for(var i=0, fin = arrU.length; i<fin;i++){
+        if(valor === arrU[i]){
+            contador++;
         }
     }
     
-    return sw;
+     for(var i=0, fin = arrD.length; i<fin;i++){
+        if(valor === arrD[i]){
+            contador++;
+        }
+    }
+   
+    return contador>=2;
 }
 
 /*Genera los eventos en las imagenes de las columnas que les pases. Se resta i a partir de la fila dos*/
@@ -72,14 +80,13 @@ function generaEventos(colu1, colu2){
   
     for(var i = 0, fin = uno.length; i<fin;i++){
         
-        uno[i].addEventListener('click', function(e){
-            
+        uno[i].addEventListener('click', function(){
             this.setAttribute('src', 'img/'+ colu1[this.name]+ '.jpg');
         })
     }
      for(var i = 0, fin = dos.length; i<fin;i++){
         dos[i].addEventListener('click', function(){
-           this.setAttribute('src', 'img/'+ colu2[this.name-i] + '.jpg');
+           this.setAttribute('src', 'img/'+ colu2[this.name] + '.jpg');
         })
     }
 }
