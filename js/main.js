@@ -1,4 +1,4 @@
-var numParUno =undefined, numParDos=undefined;
+var numParUno =null, numParDos=null, nodoAnterior = null;
 window.onload = function(){
     generaNegras();
     var numeroCarta = generaLogica();
@@ -84,37 +84,39 @@ function generaEventos(colu1, colu2){
         uno[i].addEventListener('click', function(){
             this.setAttribute('src', 'img/'+ colu1[this.name]+ '.jpg');
             
-            comprobador(colu1[this.name], this.name);
+            comprobador(colu1[this.name],this);
         })
     }
      for(var i = 0, fin = dos.length; i<fin;i++){
         dos[i].addEventListener('click', function(){
            this.setAttribute('src', 'img/'+ colu2[this.name] + '.jpg');
-           comprobador(colu2[this.name], this.name);
+           comprobador(colu2[this.name], this);
 
         })
     }
 }
-
-function comprobador(valor, numero){
-    console.log(numParUno)
-    console.log(numParDos)
-    var imagenes = document.getElementsByName(numero);
-    if(numParUno!==undefined){
+/*Recibe el valor de la carta y el nodo de la carta, "devuelve" el nodo pulsado */
+function comprobador(valor, nodo){
+    if(numParUno!==null){
         numParDos = valor;
     }else{
         numParUno = valor;
+    }
+    var imagenes = document.getElementsByTagName('img');
+    if(numParUno != numParDos && numParUno !== null && numParDos !== null){
+        
+           for(var i = 0, fin = imagenes.length;i<fin;i++){
+            
+            nodoAnterior.setAttribute('src', 'img/inicial.jpg');
+              
+        } 
+        numParUno = numParDos; numParDos = null;
+          
+    }
+    if(numParUno===numParDos){
+        numParUno = null; numParDos = null;
 
     }
-    
-    if(numParUno != numParDos && numParDos!==undefined){
-        setInterval(function(){
-           for(var i = 0, fin = imagenes.length;i<fin;i++){
-            imagenes[i].setAttribute('src', 'img/inicial.jpg')
-        } 
-        },2000)
-        
-    }
-    
+    nodoAnterior = nodo;
     
 }
