@@ -109,33 +109,33 @@ function generaEventos(colu1, colu2){
 /*Recibe el valor de la carta y el nodo de la carta, "devuelve" el nodo pulsado */
 function comprobador(valor, nodo){
     if(nodo !== nodoAnterior){
-    if(numParUno!==null){
-        numParDos = valor;
-    }else{
-        numParUno = valor;
-    }
-    var imagenes = document.getElementsByTagName('img');
-    if(numParUno != numParDos && numParUno !== null && numParDos !== null){
+        if(numParUno!==null){
+            numParDos = valor;
+        }else{
+            numParUno = valor;
+        }
+        var imagenes = document.getElementsByTagName('img');
+        if(numParUno != numParDos && numParUno !== null && numParDos !== null){
         
-           for(var i = 0, fin = imagenes.length;i<fin;i++){
+            for(var i = 0, fin = imagenes.length;i<fin;i++){
             
-            nodoAnterior.setAttribute('src', 'img/inicial.jpg');
+                nodoAnterior.setAttribute('src', 'img/inicial.jpg');
               
-        } 
-        numParUno = numParDos; numParDos = null;
-        intentos++;
+            } 
+            numParUno = numParDos; numParDos = null;
+            intentos++;
           
-    }
-    if(numParUno===numParDos){
-        numParUno = null; numParDos = null;
-        aciertos++;
+        }
+        if(numParUno===numParDos){
+            numParUno = null; numParDos = null;
+            aciertos++;
 
-    }
-    nodoAnterior = nodo;
+        }
+        nodoAnterior = nodo;
     
-    intentosYAciertos();
+        intentosYAciertos();
        
-  }
+    }
 }
 
 function intentosYAciertos(){
@@ -148,7 +148,11 @@ function intentosYAciertos(){
         boton.innerHTML= "Enviar"
         boton.addEventListener('click', function(){
             var txt = document.getElementById('nombre').value;
-            localStorage.setItem(txt, intentos +"*"+tiempo);
+            var objResultado = new Object();
+            objResultado['intentos'] = intentos;
+            objResultado['tiempo'] = tiempo;
+            
+            localStorage.setItem(txt, JSON.stringify(objResultado));
             reseteaJuego();
            
         })
