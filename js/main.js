@@ -1,8 +1,19 @@
-var numParUno =null, numParDos=null, nodoAnterior = null;
-window.onload = function(){
+var numParUno =null, numParDos=null, nodoAnterior = null, intentos=0, fallos=0, tiempo = 0, aciertos = 0;
+setInterval(function(){
+    tiempo++;
+}, 1000);
+window.onload = setenta;
+    
+function setenta(){
+    var ob = new Date();
     generaNegras();
     var numeroCarta = generaLogica();
     var xx = generaEventos(numeroCarta.una, numeroCarta.dos);
+    document.getElementById('button').addEventListener(function(){
+        //TODO: Hacer función para leer el ranking
+    })
+    
+    
 
 }
 /* Genera las cartas negras, o cartas "volteadas"*/
@@ -97,6 +108,7 @@ function generaEventos(colu1, colu2){
 }
 /*Recibe el valor de la carta y el nodo de la carta, "devuelve" el nodo pulsado */
 function comprobador(valor, nodo){
+    if(nodo !== nodoAnterior){
     if(numParUno!==null){
         numParDos = valor;
     }else{
@@ -111,12 +123,48 @@ function comprobador(valor, nodo){
               
         } 
         numParUno = numParDos; numParDos = null;
+        intentos++;
           
     }
     if(numParUno===numParDos){
         numParUno = null; numParDos = null;
+        aciertos++;
 
     }
     nodoAnterior = nodo;
     
+    intentosYAciertos();
+       
+  }
+}
+
+function intentosYAciertos(){
+    var sw = false;
+    if(aciertos===5){
+        alert('Ganaste, en '+ intentos + ' y en nada menos que '+tiempo+' segundos');
+        var caja = document.createElement('input');
+        caja.setAttribute('id', 'nombre');
+        var boton = document.createElement('button');
+        boton.innerHTML= "Enviar"
+        boton.addEventListener('click', function(){
+            var txt = document.getElementById('nombre').value;
+            localStorage.setItem(txt, intentos +"*"+tiempo);
+            reseteaJuego();
+           
+        })
+        document.getElementById('colum3').appendChild(caja);
+        document.getElementById('colum3').appendChild(boton);
+      
+    }
+  
+}
+
+function reseteaJuego(){
+    tiempo = 0;
+    intentos = 0;
+    aciertos = 0;
+    document.getElementById('colum1').innerHTML = "";
+    document.getElementById('colum2').innerHTML = "";
+    document.getElementById('colum3').innerHTML = "";
+    setenta();
 }
