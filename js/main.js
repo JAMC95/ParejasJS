@@ -196,13 +196,16 @@ function listarRanking() {
     var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
     var parrafo;
     for(var i = 0, fin = posiciones.length; i < fin; i++){
-      contenidoPosicion = localStorage.getItem(posiciones[i]);
-      contenidoPosicion = JSON.parse(contenidoPosicion);
-        parrafo = contenidoPosicion.nombre + " ha logrado superarlo en "+contenidoPosicion.intentos+ "intentos y en "  +contenidoPosicion.tiempo+" segundos";
-        var nuevoPuesto = document.createElement('p');
-        var parrafoNodo = document.createTextNode(parrafo);
-        nuevoPuesto.appendChild(parrafoNodo);
-        cajon.appendChild(nuevoPuesto);
+        contenidoPosicion = localStorage.getItem(posiciones[i]);
+        contenidoPosicion = JSON.parse(contenidoPosicion);
+        if(contenidoPosicion.intentos !== 0){
+          parrafo = contenidoPosicion.nombre + " ha logrado superarlo en "+contenidoPosicion.intentos+ "intentos y en "  +contenidoPosicion.tiempo+" segundos";
+          var nuevoPuesto = document.createElement('p');
+          var parrafoNodo = document.createTextNode(parrafo);
+          nuevoPuesto.appendChild(parrafoNodo);
+          cajon.appendChild(nuevoPuesto);  
+        }
+
     }
 }
 function escribirRanking(posicion, contenido) {
