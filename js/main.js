@@ -38,39 +38,24 @@ function generaCartasNegras(numero){
 
 function generaAleatorios(numero){
     var arrRandom = new Array();
+    var arrInicialA = new Array();
+    var arrInicialB = new Array();
+    var arrOrdenado = new Array();
+    var numeroAle;
 
-    var numeroA;
-    var rondaUno = numero/2;
 
-    for(i = 0; i<rondaUno;i++){
-        do{
-            numeroA = Math.round(Math.random()*4);
-          }while(comprobarNoRepetidos(numeroA, arrRandom, 1));
-        arrRandom[i] = numeroA;
+    for(i = 0; i<numero/2;i++){
+      arrInicialA[i] = Math.round(Math.random() * 39);
+      arrInicialB[i] = arrInicialA[i];
     }
-    for(var i = rondaUno, fin=numero; i<fin;i++){
-      do{
-            numeroA = arrRandom[Math.round(Math.random()*rondaUno)];
-          }while(comprobarNoRepetidos(numeroA, arrRandom, 2));
-        arrRandom[i] = numeroA;
-    }
+    arrOrdenado = arrInicialA.concat(arrInicialB);
 
-   console.log(arrRandom)
-
+    arrRandom = arrOrdenado.sort(function() {return Math.random() - 0.5});
+    console.log(arrRandom);
     return arrRandom;
 
 }
 
-/* Comprueba que no haya repetidos dentro de los dos arrays*/
-function comprobarNoRepetidos(valor, arrRandom, limite){
-    var contador = 0;
-    for(var i=0, fin = arrRandom.length; i<fin;i++){
-        if(valor === arrRandom[i]){
-            contador++;
-        }
-    }
-    return contador>=limite;
-}
 
 function generaEventos(arrAleatorios){
     var imagenes = document.getElementById('cajonDeSastre').getElementsByTagName('img');
@@ -203,7 +188,7 @@ function listarRanking() {
           var nuevoPuesto = document.createElement('p');
           var parrafoNodo = document.createTextNode(parrafo);
           nuevoPuesto.appendChild(parrafoNodo);
-          cajon.appendChild(nuevoPuesto);  
+          cajon.appendChild(nuevoPuesto);
         }
 
     }
