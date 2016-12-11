@@ -10,9 +10,10 @@ function inicio(){
     if(localStorage.getItem('uno') == undefined){
       inicializaRanking();
     }
-
+    lista[0].removeAttribute('id');
     lista[0].addEventListener('click', function(){
        tiempo = 0;
+       lista[0].setAttribute('id', 'invisible');
        generaCartasNegras(lista[0].value);
        var numerosAleatorios = generaAleatorios(lista[0].value);
        generaEventos(numerosAleatorios);
