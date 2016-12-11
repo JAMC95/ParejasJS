@@ -94,6 +94,12 @@ function comprobador(valor, nodo){
     if(numParUno===numParDos){
         numParUno = null; numParDos = null;
         aciertos++;
+        nodo.addEventListener('click',function () {
+          alert('no insistas')
+        });
+        nodoAnterior.addEventListener('click',function () {
+          alert('no insistas')
+        });
 
     }
     nodoAnterior = nodo;
