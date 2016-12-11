@@ -168,29 +168,45 @@ function inicializaRanking() {
 function comprobarRanking(nombre) {
     var contenidoPosicion = Object();
     var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
-    for(var i = 0, fin = posiciones.length; i < fin; i++){
+    var i = 0;
+      do{
+
+        var fin = posiciones.length
+
       contenidoPosicion = localStorage.getItem(posiciones[i]);
       contenidoPosicion = JSON.parse(contenidoPosicion);
+
       if(contenidoPosicion.intentos < intentos){
+        console.log(contenidoPosicion.intentos);
         contenidoPosicion.nombre = nombre;
         contenidoPosicion.intentos = intentos;
         contenidoPosicion.tiempo = tiempo;
+        console.log(contenidoPosicion.nombre);
+        break;
       }
-    }
+      i++;
+    }while(i<fin);
+    escribirRanking(posiciones[i], contenidoPosicion);
 }
 
 function listarRanking() {
     var cajon = document.getElementById('cajonDeSastre');
+    cajon.innerHTML = "";
     var contenidoPosicion = Object();
     var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
     var parrafo;
     for(var i = 0, fin = posiciones.length; i < fin; i++){
       contenidoPosicion = localStorage.getItem(posiciones[i]);
       contenidoPosicion = JSON.parse(contenidoPosicion);
-        parrafo = contenidoPosicion.nombre + "ha logrado superarlo en "+contenidoPosicion.intentos+ "intentos y en "  +contenidoPosicion.tiempo+" segundos";
-        var nuevoPuesto = createElement('p');
-        var parrafoNodo = createTextNode(parrafo);
+        parrafo = contenidoPosicion.nombre + " ha logrado superarlo en "+contenidoPosicion.intentos+ "intentos y en "  +contenidoPosicion.tiempo+" segundos";
+        var nuevoPuesto = document.createElement('p');
+        var parrafoNodo = document.createTextNode(parrafo);
         nuevoPuesto.appendChild(parrafoNodo);
         cajon.appendChild(nuevoPuesto);
     }
+}
+function escribirRanking(posicion, contenido) {
+    contenido = JSON.stringify(contenido);
+    localStorage.setItem(posicion, contenido);
+
 }
