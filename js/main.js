@@ -52,7 +52,7 @@ function generaAleatorios(numero){
     arrOrdenado = arrInicialA.concat(arrInicialB);
 
     arrRandom = arrOrdenado.sort(function() {return Math.random() - 0.5});
-    console.log(arrRandom);
+  //  console.log(arrRandom);
     return arrRandom;
 
 }
@@ -92,15 +92,17 @@ function comprobador(valor, nodo){
         intentos++;
 
     }
-    if(numParUno===numParDos){
+    if(numParUno===numParDos && (nodo.alt != 'acertado' && nodo.alt != 'acertado')){
         numParUno = null; numParDos = null;
         aciertos++;
         nodo.addEventListener('click',function () {
           alert('no insistas')
         });
+        nodo.setAttribute('alt', 'acertado');
         nodoAnterior.addEventListener('click',function () {
-          alert('no insistas')
+          alert('no insistas');
         });
+        nodoAnterior.setAttribute('alt', 'acertado');
 
     }
     nodoAnterior = nodo;
