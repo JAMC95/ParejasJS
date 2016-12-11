@@ -161,6 +161,14 @@ function inicializaRanking() {
 
 }
 function comprobarRanking(nombre) {
-
-
+    var contenidoPosicion = Object();
+    var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
+    for(var i = 0, fin = posiciones.length; i < fin; i++){
+      contenidoPosicion = localStorage.getItem(posiciones[i]);
+      if(contenidoPosicion.intentos < intentos){
+        contenidoPosicion.nombre = nombre;
+        contenidoPosicion.intentos = intentos;
+        contenidoPosicion.tiempo = tiempo;
+      }
+    }
 }
