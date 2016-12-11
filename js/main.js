@@ -6,8 +6,13 @@ setInterval(function(){
 function inicio(){
     var lista = document.getElementsByName('lista');
 
+    if(localStorage.getItem('uno') == undefined){
+      inicializaRanking();
+    }
+
     lista[0].addEventListener('click', function(){
-        generaCartasNegras(lista[0].value);
+       tiempo = 0;
+       generaCartasNegras(lista[0].value);
        var numerosAleatorios = generaAleatorios(lista[0].value);
        generaEventos(numerosAleatorios);
     })
@@ -125,28 +130,37 @@ function intentosYAciertos(){
         btnGanador.setAttribute('value', 'Enviar');
         cajon.appendChild(txtGanador);
         cajon.appendChild(btnGanador);
-
         document.getElementById('btnGanador').addEventListener('click', function() {
           var txtIntro = document.getElementById('txtGanador');
           console.log(txtIntro.value);
-
-        });
-
-
-            //reseteaJuego();
-
+          comprobarRanking(txtIntro.value);
+          reseteaJuego();
+          });
         }
-
-
-
-
 }
 
 function reseteaJuego(){
-    tiempo = 0;
     intentos = 0;
     aciertos = 0;
     document.getElementById('cajonDeSastre').innerHTML = "";
 
     inicio();
+}
+/* Cuando se encuentra que el localStorage está vacío, esta function inicializa 5 valores vacíos*/
+function inicializaRanking() {
+    var contenidoRanking = Object();
+    var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
+    contenidoRanking.nombre = "";
+    contenidoRanking.intentos = 0;
+    contenidoRanking.tiempo = 0;
+
+    for(var i = 0, fin = posiciones.length; i < fin; i++){
+      localStorage.setItem(posiciones[i], JSON.stringify(contenidoRanking));
+    }
+
+
+}
+function comprobarRanking(nombre) {
+
+
 }
