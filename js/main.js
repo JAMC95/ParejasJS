@@ -5,6 +5,7 @@ setInterval(function(){
 }, 1000);
 function inicio(){
     var lista = document.getElementsByName('lista');
+    var inputs = document.getElementsByTagName('input');
 
     if(localStorage.getItem('uno') == undefined){
       inicializaRanking();
@@ -15,7 +16,11 @@ function inicio(){
        generaCartasNegras(lista[0].value);
        var numerosAleatorios = generaAleatorios(lista[0].value);
        generaEventos(numerosAleatorios);
-    })
+    });
+    inputs[0].addEventListener('click', function(){
+      listarRanking();
+    });
+
 }
 
 function generaCartasNegras(numero){
@@ -142,7 +147,7 @@ function intentosYAciertos(){
 function reseteaJuego(){
     intentos = 0;
     aciertos = 0;
-    document.getElementById('cajonDeSastre').innerHTML = "";
+
 
     inicio();
 }
@@ -165,10 +170,27 @@ function comprobarRanking(nombre) {
     var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
     for(var i = 0, fin = posiciones.length; i < fin; i++){
       contenidoPosicion = localStorage.getItem(posiciones[i]);
+      contenidoPosicion = JSON.parse(contenidoPosicion);
       if(contenidoPosicion.intentos < intentos){
         contenidoPosicion.nombre = nombre;
         contenidoPosicion.intentos = intentos;
         contenidoPosicion.tiempo = tiempo;
       }
+    }
+}
+
+function listarRanking() {
+    var cajon = document.getElementById('cajonDeSastre');
+    var contenidoPosicion = Object();
+    var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
+    var parrafo;
+    for(var i = 0, fin = posiciones.length; i < fin; i++){
+      contenidoPosicion = localStorage.getItem(posiciones[i]);
+      contenidoPosicion = JSON.parse(contenidoPosicion);
+        parrafo = contenidoPosicion.nombre + "ha logrado superarlo en "+contenidoPosicion.intentos+ "intentos y en "  +contenidoPosicion.tiempo+" segundos";
+        var nuevoPuesto = createElement('p');
+        var parrafoNodo = createTextNode(parrafo);
+        nuevoPuesto.appendChild(parrafoNodo);
+        cajon.appendChild(nuevoPuesto);
     }
 }
