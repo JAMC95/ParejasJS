@@ -1,5 +1,5 @@
 window.onload = inicio;
-var nodoAnterior, numParDos, numParUno, intentos = 0, aciertos = 0, tiempo = 0;
+var nodoAnterior, numParDos, numParUno, intentos = 0, tiempo = 0;
 setInterval(function(){
     tiempo++;
 }, 1000);
@@ -92,7 +92,6 @@ function comprobador(valor, nodo){
     }
     if(numParUno===numParDos && (nodo.alt != 'acertado' && nodo.alt != 'acertado')){
         numParUno = null; numParDos = null;
-        aciertos++;
         nodo.addEventListener('click',function () {
           alert('no insistas')
         });
@@ -116,8 +115,16 @@ function intentosYAciertos(){
     var fotos = document.getElementsByName('lista');
     var numeroFotos = fotos[0].value;
     var cajon = document.getElementById('cajonDeSastre');
+    var imgDesplegadas = document.getElementsByTagName('img');
+    var numeroAciertos = 0;
 
-    if(aciertos===(numeroFotos/2)){
+    for(var i = 0, fin = imgDesplegadas.length; i<fin; i++){
+      if(imgDesplegadas[i].alt == 'acertado'){
+        numeroAciertos++;
+      }
+    }
+    console.log('aciertos '+ numeroAciertos + 'nFotos' + numeroFotos)
+    if(numeroAciertos==numeroFotos){
         alert('Ganaste, en '+ intentos + ' intentos y en nada menos que '+tiempo+' segundos');
         var txtGanador = document.createElement('input');
         txtGanador.setAttribute('id', 'txtGanador');
