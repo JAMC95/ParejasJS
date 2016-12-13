@@ -52,7 +52,6 @@ function generaAleatorios(numero){
     arrOrdenado = arrInicialA.concat(arrInicialB);
 
     arrRandom = arrOrdenado.sort(function() {return Math.random() - 0.5});
-  //  console.log(arrRandom);
     return arrRandom;
 
 }
@@ -83,11 +82,10 @@ function comprobador(valor, nodo){
     var imagenes = document.getElementsByTagName('img');
     if(numParUno != numParDos && numParUno !== null && numParDos !== null){
 
-           for(var i = 0, fin = imagenes.length;i<fin;i++){
-            if(nodoAnterior!=undefined)
+      if(nodoAnterior!=undefined){
             nodoAnterior.setAttribute('src', 'images/inicial.jpg');
+            }
 
-        }
         numParUno = numParDos; numParDos = null;
         intentos++;
 
