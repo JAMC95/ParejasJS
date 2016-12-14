@@ -177,18 +177,15 @@ function comprobarRanking(nombre) {
     contenidoPosicion = localStorage.getItem(posiciones[i]);
     contenidoPosicion = JSON.parse(contenidoPosicion);
 
-    if(contenidoPosicion.intentos < intentos){
-
+    if(contenidoPosicion.intentos > intentos){
       auxObj = contenidoPosicion;
       contenidoPosicion.nombre = nombre;
       contenidoPosicion.intentos = intentos;
       contenidoPosicion.tiempo = tiempo;
-
       break;
     }
     i++;
   }while(i<fin);
-  escribirRanking(posiciones[i], contenidoPosicion);
 
   for(var j = i, fin = posiciones.length; j<fin; j++){
     contenidoPosicion = localStorage.getItem(posiciones[j]);
