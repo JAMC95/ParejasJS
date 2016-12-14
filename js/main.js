@@ -165,27 +165,37 @@ function inicializaRanking() {
 
 }
 function comprobarRanking(nombre) {
-    var contenidoPosicion = Object();
-    var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
-    var i = 0;
-      do{
+  var contenidoPosicion = Object();
+  var posiciones = Array("uno", "dos", "tres", "cuatro", "cinco");
+  var i = 0;
+  var auxObj = new Object();
 
-        var fin = posiciones.length
+    do{
 
-      contenidoPosicion = localStorage.getItem(posiciones[i]);
-      contenidoPosicion = JSON.parse(contenidoPosicion);
+      var fin = posiciones.length
 
-      if(contenidoPosicion.intentos < intentos){
-        console.log(contenidoPosicion.intentos);
-        contenidoPosicion.nombre = nombre;
-        contenidoPosicion.intentos = intentos;
-        contenidoPosicion.tiempo = tiempo;
-        console.log(contenidoPosicion.nombre);
-        break;
-      }
-      i++;
-    }while(i<fin);
-    escribirRanking(posiciones[i], contenidoPosicion);
+    contenidoPosicion = localStorage.getItem(posiciones[i]);
+    contenidoPosicion = JSON.parse(contenidoPosicion);
+
+    if(contenidoPosicion.intentos < intentos){
+
+      auxObj = contenidoPosicion;
+      contenidoPosicion.nombre = nombre;
+      contenidoPosicion.intentos = intentos;
+      contenidoPosicion.tiempo = tiempo;
+
+      break;
+    }
+    i++;
+  }while(i<fin);
+  escribirRanking(posiciones[i], contenidoPosicion);
+
+  for(var j = i, fin = posiciones.length; j<fin; j++){
+    contenidoPosicion = localStorage.getItem(posiciones[j]);
+    contenidoPosicion = JSON.parse(contenidoPosicion);
+      escribirRanking(posiciones[j], auxObj);
+      auxObj = contenidoPosicion;
+  }
 }
 
 function listarRanking() {
